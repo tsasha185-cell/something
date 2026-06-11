@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Приглашение | Для Невесты | Bratz фон</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #ffb7c5;
+            background: radial-gradient(circle at 25% 20%, #ffc0d0, #ff9aae);
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', system-ui, -apple-system, 'Playfair Display', serif;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* === СТАРТОВЫЙ ЭКРАН === */
+        .start-screen {
+            width: 100%;
+            max-width: 550px;
+            background: radial-gradient(circle at 30% 20%, #ffbfcf, #ff8da8);
+            border-radius: 60px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .start-screen.hidden {
+            display: none;
+        }
+
+        .invitation-preview-text {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #a13151;
+            text-shadow: 0 2px 12px rgba(255,220,230,0.8);
+            margin-bottom: 40px;
+            font-weight: 600;
+            background: rgba(255,245,245,0.5);
+            padding: 12px 24px;
+            border-radius: 60px;
+            backdrop-filter: blur(8px);
+        }
+
+        /* кнопка — текст в одну строку */
+        .open-btn {
+            background: linear-gradient(135deg, #ff99bb, #ff6f91);
+            border: none;
+            padding: 16px 32px;
+            font-size: 1.9rem;
+            font-weight: bold;
+            border-radius: 80px;
+            color: #fff0f3;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            width: auto;
+            min-width: 260px;
+            white-space: nowrap;
+            letter-spacing: 1px;
+        }
+
+        .open-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* === ВТОРОЕ ОКНО: BRATZ ФОН (весь большой фон) === */
+        .main-scene {
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .main-scene.hidden {
+            display: none;
+        }
+
+        /* фон в стиле Bratz — яркий розово-фиолетовый градиент + звёзды */
+        .bratz-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #e83c6c, #c1226b, #a02060);
+            background-size: 200% 200%;
+            animation: bratzShimmer 6s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes bratzShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* фоновые звёзды, сердечки, bratz-элементы (на весь экран) */
+        .bg-bratz-full {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .star-bg, .glitter-bg {
+            position: absolute;
+            color: #ffe484;
+            filter: drop-shadow(0 0 2px #ff00aa);
+            animation: floatBratz 7s infinite ease-in-out;
+        }
+
+        @keyframes floatBratz {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-12px) rotate(8deg); opacity: 0.9; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+        }
+
+        /* контейнер с конвертом — светлый, как просили */
+        .invitation-container {
+            background: rgba(255,230,240, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 55px;
+            padding: 25px 20px 35px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255,215,150,0.9);
+            position: relative;
+            z-index: 2;
+        }
+
+        .envelope-wrapper {
+            background: #ffefd6;
+            border-radius: 28px;
+            padding: 25px 20px 30px;
+            position: relative;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            z-index: 2;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .envelope-wrapper:active {
+            transform: scale(0.99);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 35px;
+            background: #f5cf9f;
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            border-radius: 4px 4px 12px 12px;
+        }
+
+        .seal {
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ffafc0, #ff7f9f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .heart-decoration {
+            position: absolute;
+            left: 15px;
+            bottom: 12px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        .card-stage {
+            background: #fff5ec;
+            border-radius: 20px;
+            padding: 10px;
+        }
+
+        .invitation-image-wrapper {
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.5s ease-out;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .invitation-image-wrapper.show {
+            max-height: 800px;
+            opacity: 1;
+            transform: translateY(0);
+            margin-bottom: 10px;
+        }
+
+        .invitation-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+
+        #envelopeMessage {
+            text-align: center;
+            padding: 30px 12px;
+            color: #b15674;
+            transition: 0.2s;
+        }
+
+        #envelopeMessage span {
+            font-size: 2.5rem;
+        }
+
+        .reset-button {
+            background: #d96c8a;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            border-radius: 60px;
+            color: white;
+            font-weight: bold;
+            margin-top: 20px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 250px;
+            transition: 0.2s;
+        }
+        .reset-button:active {
+            transform: scale(0.96);
+        }
+
+        .bride-note {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255,215,225,0.8);
+            border-radius: 60px;
+            color: #a12a4a;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* кнопка назад (справа внизу) */
+        .back-to-start {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid #ff77aa;
+            border-radius: 50px;
+            padding: 8px 18px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #ffe0f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: 0.2s;
+            z-index: 999;
+            font-family: inherit;
+        }
+        .back-to-start:active {
+            transform: scale(0.95);
+            background: #ff4d7a;
+        }
+        .back-to-start span {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 550px) {
+            body { padding: 15px; }
+            .invitation-preview-text { font-size: 1.5rem; }
+            .open-btn { font-size: 1.4rem; padding: 12px 20px; min-width: 220px; white-space: nowrap; }
+            .back-to-start { padding: 6px 14px; font-size: 0.75rem; bottom: 15px; right: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ПЕРВОЕ ОКНО -->
+<div id="startScreen" class="start-screen">
+    <div class="invitation-preview-text">
+        💖 Привет привет красотка! 💖
+    </div>
+    <button id="revealInvitationBtn" class="open-btn">
+        ✨ НАЖМИ МЕНЯ ✨
+    </button>
+</div>
+
+<!-- ВТОРОЕ ОКНО: ФОН BRATZ (весь большой фон), внутри конверт с сердечками -->
+<div id="mainScene" class="main-scene hidden">
+    <!-- BRATZ фон на весь экран -->
+    <div class="bratz-bg"></div>
+    <div class="bg-bratz-full" id="bgBratzFull"></div>
+    
+    <div class="invitation-container">
+        <div class="envelope-wrapper">
+            <div class="envelope-flap"></div>
+            <div class="seal">💗</div>
+            <div class="heart-decoration">💕</div>
+            <div class="card-stage">
+                <!-- Здесь картинка ПРИГЛАШЕНИЯ - файл prigl.jpg должен лежать в той же папке -->
+                <div id="invitationImageWrap" class="invitation-image-wrapper">
+                    <img id="invitationImg" class="invitation-img" src="prigl.jpg" alt="Приглашение">
+                </div>
+                <div id="envelopeMessage">
+                    <span>💌💖</span>
+                    <p style="margin-top: 10px;">Тут скрыто самое важное послание...</p>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <button id="resetInvitationBtn" class="reset-button">🔄 Показать заново 💗</button>
+        </div>
+        <div class="bride-note">
+            <span>👰‍♀️🤍</span> Для нашей прекрасной Невесты! <span>💕💍</span>
+        </div>
+    </div>
+    
+    <!-- Кнопка назад (справа внизу) -->
+    <div id="backButton" class="back-to-start">
+        <span>◀</span> Назад
+    </div>
+</div>
+
+<script>
+    const startScreen = document.getElementById('startScreen');
+    const mainScene = document.getElementById('mainScene');
+    const revealBtn = document.getElementById('revealInvitationBtn');
+    const resetBtn = document.getElementById('resetInvitationBtn');
+    const backBtn = document.getElementById('backButton');
+    const invitationImageWrap = document.getElementById('invitationImageWrap');
+    const envelopeMessageDiv = document.getElementById('envelopeMessage');
+
+    let isImageRevealed = false;
+
+    // Генерация Bratz-фона на весь экран: звёзды, сердечки, блёстки
+    function generateBratzFullBackground() {
+        const container = document.getElementById('bgBratzFull');
+        if (!container) return;
+        container.innerHTML = '';
+        const symbols = ['⭐', '🌟', '💖', '💗', '✨', '💎', '👑', '💋', '🌸', '🔥', '💅', '🎀', '💕', '💞'];
+        for (let i = 0; i < 70; i++) {
+            const el = document.createElement('div');
+            const randomSym = symbols[Math.floor(Math.random() * symbols.length)];
+            el.innerText = randomSym;
+            el.classList.add('star-bg');
+            const size = Math.floor(Math.random() * 28 + 12);
+            el.style.fontSize = size + 'px';
+            el.style.left = Math.random() * 100 + '%';
+            el.style.top = Math.random() * 100 + '%';
+            el.style.animationDuration = Math.random() * 8 + 3 + 's';
+            el.style.animationDelay = Math.random() * 6 + 's';
+            el.style.opacity = Math.random() * 0.6 + 0.2;
+            el.style.position = 'absolute';
+            container.appendChild(el);
+        }
+        // добавим пару надписей BRATZ по углам
+        const bratz1 = document.createElement('div');
+        bratz1.innerText = 'BRATZ';
+        bratz1.style.position = 'absolute';
+        bratz1.style.bottom = '20px';
+        bratz1.style.left = '20px';
+        bratz1.style.fontSize = '2.2rem';
+        bratz1.style.fontWeight = 'bold';
+        bratz1.style.fontFamily = 'Impact, fantasy';
+        bratz1.style.color = '#ffecb3';
+        bratz1.style.textShadow = '2px 2px 0 #ff1493';
+        bratz1.style.opacity = '0.4';
+        bratz1.style.transform = 'rotate(-10deg)';
+        bratz1.style.pointerEvents = 'none';
+        container.appendChild(bratz1);
+        
+        const bratz2 = document.createElement('div');
+        bratz2.innerText = '✨BRATZ✨';
+        bratz2.style.position = 'absolute';
+        bratz2.style.top = '20px';
+        bratz2.style.right = '20px';
+        bratz2.style.fontSize = '1.8rem';
+        bratz2.style.fontWeight = 'bold';
+        bratz2.style.fontFamily = 'Impact, fantasy';
+        bratz2.style.color = '#ffe0a3';
+        bratz2.style.textShadow = '1px 1px 0 #ff69b4';
+        bratz2.style.opacity = '0.45';
+        bratz2.style.transform = 'rotate(8deg)';
+        bratz2.style.pointerEvents = 'none';
+        container.appendChild(bratz2);
+    }
+
+    function revealCard() {
+        if (isImageRevealed) return;
+        invitationImageWrap.classList.add('show');
+        if (envelopeMessageDiv) {
+            envelopeMessageDiv.style.display = 'none';
+        }
+        isImageRevealed = true;
+    }
+
+    function resetInvitation() {
+        invitationImageWrap.classList.remove('show');
+        if (envelopeMessageDiv) {
+            envelopeMessageDiv.style.display = 'block';
+        }
+        isImageRevealed = false;
+    }
+
+    function goToInvitation() {
+        startScreen.classList.add('hidden');
+        mainScene.classList.remove('hidden');
+        generateBratzFullBackground();
+    }
+
+    function goBackToStart() {
+        resetInvitation();
+        startScreen.classList.remove('hidden');
+        mainScene.classList.add('hidden');
+    }
+
+    revealBtn.addEventListener('click', goToInvitation);
+    resetBtn.addEventListener('click', resetInvitation);
+    backBtn.addEventListener('click', goBackToStart);
+
+    const envelopeArea = document.querySelector('.envelope-wrapper');
+    if (envelopeArea) {
+        envelopeArea.addEventListener('click', (e) => {
+            if (e.target === resetBtn || e.target.closest('#resetInvitationBtn')) return;
+            if (!isImageRevealed) {
+                revealCard();
+            }
+        });
+    }
+
+    const invitationImg = document.getElementById('invitationImg');
+    if (invitationImg) {
+        invitationImg.addEventListener('click', () => {
+            const toast = document.createElement('div');
+            toast.innerText = '💍 С любовью для нашей Невесты! 💖';
+            toast.style.position = 'fixed';
+            toast.style.bottom = '30px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = '#ffc0d0';
+            toast.style.color = '#962d55';
+            toast.style.padding = '10px 20px';
+            toast.style.borderRadius = '40px';
+            toast.style.fontWeight = 'bold';
+            toast.style.zIndex = '9999';
+            toast.style.fontSize = '0.9rem';
+            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        });
+    }
+
+    document.querySelectorAll('button, .envelope-wrapper').forEach(el => {
+        el.addEventListener('touchstart', function() {});
+    });
+</script>
+</body>
+</html>
